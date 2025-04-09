@@ -11,8 +11,8 @@
 				<Input placeholder='Name' type='text' class='mb-3' v-model='form.nameRef' />
 
 				<div class="flex items-center justify-center gap-5">
-					<Button type="button">Login</Button>
-					<Button type="button">Register</Button>
+					<Button type="button" @click='login'>Login</Button>
+					<Button type="button" @click='register'>Register</Button>
 				</div>
 			</form>
 		</div>
@@ -63,25 +63,42 @@ const login = async () => {
 }
 
 const register = async () => {
+	if (!form.value.emailRef || !form.value.passwordRef || !form.value.nameRef) {
+		alert('Заполните все поля')
+		return
+	}
+
 	try {
 		isLoadingStore.set(true)
 
-		await account.create(uuid(), form.value.emailRef, form.value.passwordRef, form.value.nameRef)
-		const response = account.get()
+		// 1. Создаем аккаунт
+		await account.create(
+			uuid(),
+			form.value.emailRef,
+			form.value.passwordRef,
+			form.value.nameRef
+		)
 
-		if (response) {
-			if (authStore) {
-				authStore.set({
-					status: response.status,
-					name: response.name,
-					email: response.email
-				})
-			}
-		}
+		// 2. Выполняем вход
+		await account.createEmailPasswordSession(
+			form.value.emailRef,
+			form.value.passwordRef
+		)
+
+		// 3. Теперь можно получать данные аккаунта
+		const response = await account.get()
+
+		authStore.set({
+			email: response.email,
+			name: response.name,
+			status: response.status
+		})
+
 		await router.push('/')
-	} catch (error) {
-		console.log(`error register ${error}`)
-		isLoadingStore.set(false)
+
+	} catch (error: any) {
+		console.error('Ошибка регистрации:', error)
+		alert('Ошибка регистрации: ' + error.message)
 	} finally {
 		isLoadingStore.set(false)
 	}
