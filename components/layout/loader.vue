@@ -5,8 +5,7 @@
 </template>
 
 <style scoped>
-/* Изменение */
 .wrapper {
-	@apply bg-sidebar flex items-center justify-center w-screen h-screen;
+	@apply flex items-center justify-center w-screen h-screen;
 }
 </style>

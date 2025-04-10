@@ -28,6 +28,8 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 	],
 
+	ssr: false,
+
 	shadcn: {
 		/**
 		 * Prefix for all the imported component
