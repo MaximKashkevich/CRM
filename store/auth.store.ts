@@ -25,7 +25,13 @@ export const useAuthStore = defineStore('auth', {
 		},
 
 		clear() {
-			this.$patch(defaultValues)
+			this.$patch({
+				user: {
+					status: false,
+					email: '',
+					name: '',
+				},
+			})
 		},
 	},
 })

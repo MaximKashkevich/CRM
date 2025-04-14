@@ -14,13 +14,13 @@ onMounted(async () => {
 	} catch (error) {
 		router.push('/login')
 	} finally {
-		isLoadingStore.set(true)
+		isLoadingStore.set(false)
 	}
 })
 </script>
 
 <template>
-	<LayoutLoader v-if="!isLoadingStore.isLoading" />
+	<LayoutLoader v-if="isLoadingStore.isLoading" />
 	<section v-else :class="{ grid: store.isAuth }" style="min-height: 100vh">
 		<LayoutSidebar v-if="store.isAuth" />
 		<div>
