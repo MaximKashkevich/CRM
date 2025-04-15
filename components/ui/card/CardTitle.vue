@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
 import { cn } from '@/lib/utils'
 
-const props = defineProps<{
-  class?: HTMLAttributes['class']
-}>()
+const props = defineProps({
+  class: {
+    type: String,
+    default: '',
+  },
+})
 </script>
 
 <template>
-  <h3
-    data-slot="card-title"
-    :class="cn('leading-none font-semibold', props.class)"
-  >
+  <h3 :class="cn('text-xl font-semibold leading-none tracking-tighter', props.class)
+    ">
     <slot />
   </h3>
 </template>
