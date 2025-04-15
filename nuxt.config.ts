@@ -26,6 +26,12 @@ export default defineNuxtConfig({
 		],
 		'@nuxt/icon',
 		'@pinia/nuxt',
+		[
+			'@vee-validate/nuxt',
+			{
+				autoImports: true,
+			},
+		],
 	],
 
 	ssr: false,
