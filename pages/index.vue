@@ -9,6 +9,7 @@
 					<div class="rounded bg-slate-700 py-1 px-5 mb-2 text-center whitespace-nowrap">
 						{{ column.name }}
 					</div>
+					<KanbanCreateDeal :refetch='refetch' :status='column.id' />
 					<!-- Карточки сделок -->
 					<Card v-for='card in column.items' :key='card.id' class="mb-3" draggable="true">
 						<CardHeader role="button">
@@ -31,6 +32,7 @@
 </template>
 
 <script lang='ts' setup>
+import { KanbanCreateDeal } from '#components'
 import dayjs from 'dayjs'
 import type { ICard, IColumn } from '~/components/kanban/kanban.types'
 import { useKanbanQuery } from '~/components/kanban/useKanbanQuery'
